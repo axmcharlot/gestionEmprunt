@@ -19,6 +19,6 @@ Clone the project repository from GitHub:
 ```python main.py```
 
 ## Contibutors
-Dans le cadre d'un projet a l'ecole, les membres de l'equipe son:
+Dans le cadre d'un projet a l'école, les membres de l'équipe sont:
 Anachi, Axm, KS, sun
 

@@ -23,10 +23,10 @@ def client():
             if ch == 'a':
                 print(Fore.GREEN+"a"+Style.RESET_ALL+" : lister tous les commandes disponibles")
                 print(Fore.GREEN+"ajouter"+Style.RESET_ALL+" : lister tous les commandes disponibles")
-                print(Fore.GREEN+"chercher"+Style.RESET_ALL+" [cle]: chercher des clients a partir id du client, nom, classe")
-                print(Fore.GREEN+"lt"+Style.RESET_ALL+" : lister tous les materiels")
-                print(Fore.GREEN+"modifier"+Style.RESET_ALL+" [id]: modifier les proprietes d'un client avec l'id entree")
-                print(Fore.GREEN+"supprimer"+Style.RESET_ALL+" [id]: supprimer les donnees d'un client avec l'id entree")
+                print(Fore.GREEN+"chercher"+Style.RESET_ALL+" [cle]: chercher des clients à partir id du client, nom, classe")
+                print(Fore.GREEN+"lt"+Style.RESET_ALL+" : lister tous les matériels")
+                print(Fore.GREEN+"modifier"+Style.RESET_ALL+" [id]: modifier les propriétés d'un client avec l'id entrée")
+                print(Fore.GREEN+"supprimer"+Style.RESET_ALL+" [id]: supprimer les données d'un client avec l'id entrée")
                 print(Fore.GREEN+"q"+Style.RESET_ALL+" : revenir au menu principal")
             elif ch == 'q':
                 break
@@ -35,10 +35,10 @@ def client():
                 nom_client = input("Entrez le nom du nouveau client : ")
                 classe_client = input("Entrez la classe du nouveau client : ")
                 if c.inserer_client(id_client, nom_client, classe_client):
-                    cprint("[+]Ajout de client effectue avec succes.", 'green')
+                    cprint("[+] Ajout de client effectué avec succès.", 'green')
                     c.afficher_clients()
                 else:
-                    cprint("[-]Une erreur s'est produite", 'red')
+                    cprint("[-] Une erreur s'est produite", 'red')
             elif re.match(p, ch):
                 id_materiel = (ch.split(" ")[1]).title()
                 c.c.execute("SELECT idClient FROM client where idClient = ?",(id_materiel,))
@@ -48,35 +48,35 @@ def client():
                     nom_materiel = input("Entrez le nom du client : ").title()
                     classe_materiel = input("Entrez la classe du client : ").upper()
                     if c.modifier_client(id_materiel, nom_materiel, classe_materiel):
-                        cprint("[+]Modification du client effectue avec succes.", 'green')
+                        cprint("[+] Modification du client effectué avec succès.", 'green')
                     else:
-                        cprint("[-]Une erreur s'est produite", 'red')
+                        cprint("[-] Une erreur s'est produite", 'red')
                 else:
-                    cprint("[-]Client non reconnu", 'red')
+                    cprint("[-] Client non reconnu", 'red')
             elif re.match(p1, ch):
                 id_materiel = (ch.split(" ")[1]).title()
                 c.c.execute("SELECT idClient FROM client where idClient = ?",(id_materiel,))
                 ids = c.c.fetchall()
                 if (id_materiel,) in ids:
-                    cprint("[!]Voulez-vous vraiment supprimer?(o/n)")
+                    cprint("[!] Voulez-vous vraiment supprimer?(o/n)")
                     resp = input().lower()
                     if resp == 'o':
                         if c.supprimer_client(id_materiel):
-                            cprint("[+]Le client a ete retire avec succes.", 'green')
+                            cprint("[+] Le client a été retiré avec succès.", 'green')
                         else:
-                            cprint("[-]Une erreur s'est produite", 'red')
+                            cprint("[-] Une erreur s'est produite", 'red')
                     else:
                         return
                 else:
-                    cprint("[-]Materiel non reconnu", 'red')
+                    cprint("[-] Matériel non reconnu", 'red')
             elif re.match(p2, ch):
                 key = (ch.split(" ")[1]).title()
                 c.afficher_client_by_key(key)
             elif ch == 'lt':
                 c.afficher_clients()
             else:
-                cprint("[-]Commande introuvable ou incomplete.", 'red')
-                cprint("[!]Taper 'a' pour voir la liste des commandes valides",'yellow')
+                cprint("[-] Commande introuvable ou incomplète.", 'red')
+                cprint("[!] Taper 'a' pour voir la liste des commandes valides",'yellow')
 
 
 def materiel():
@@ -97,36 +97,36 @@ def materiel():
         if ch == 'a':
             print(Fore.GREEN+"a"+Style.RESET_ALL+" : lister tous les commandes disponibles")
             print(Fore.GREEN+"ajouter"+Style.RESET_ALL+" : lister tous les commandes disponibles")
-            print(Fore.GREEN+"chercher"+Style.RESET_ALL+" [cle]: chercher des materiels a partir id du materiel, designation, nombre")
-            print(Fore.GREEN+"lt"+Style.RESET_ALL+" : lister tous les materiels")
-            print(Fore.GREEN+"modifier"+Style.RESET_ALL+" [id]: modifier les proprietes de l'emprunt avec l'id entree")
-            print(Fore.GREEN+"supprimer"+Style.RESET_ALL+" [id]: supprimer les donnees d'un materiel avec l'id entree")
+            print(Fore.GREEN+"chercher"+Style.RESET_ALL+" [cle]: chercher des matériels à partir id du matériel, désignation, nombre")
+            print(Fore.GREEN+"lt"+Style.RESET_ALL+" : lister tous les matériels")
+            print(Fore.GREEN+"modifier"+Style.RESET_ALL+" [id]: modifier les propriétés de l'emprunt avec l'id entrée")
+            print(Fore.GREEN+"supprimer"+Style.RESET_ALL+" [id]: supprimer les données d'un materiel avec l'id entrée")
             print(Fore.GREEN+"q"+Style.RESET_ALL+" : revenir au menu principal")
         elif ch == 'q':
             break
         elif ch == 'ajouter':
-            idM = input("Entrez l'ID du materiel: ").title()
-            des = input("Entrez la designation du materiel: ").title()
-            stock = int(input("Entrez le nombre de materiel a ajouter: "))
+            idM = input("Entrez l'ID du matériel: ").title()
+            des = input("Entrez la désignation du matériel: ").title()
+            stock = int(input("Entrez le nombre de materiel à ajouter: "))
             if m.ajouter_materiel(idM,des,stock):
-                cprint("[+]Ajout de materiel effectue avec succes.", 'green')
+                cprint("[+] Ajout de matériel effectué avec succès.", 'green')
                 m.afficher_materiel()
             else:
-                cprint("[-]Une erreur s'est produite", 'red')
+                cprint("[-] Une erreur s'est produite", 'red')
         elif re.match(p, ch):
             id_materiel = (ch.split(" ")[1]).title()
             m.c.execute("SELECT idMat FROM materiel where idMat = ?",(id_materiel,))
             ids = m.c.fetchall()
             if (id_materiel,) in ids:
                 m.afficher_materiel_by_id(id_materiel)
-                nom_materiel = input("Entrez la nouvelle designation du materiel : ")
+                nom_materiel = input("Entrez la nouvelle designation du matériel : ")
                 classe_materiel = input("Entrez le nouveau nombre en stock : ")
                 if m.modifier_materiel(id_materiel, nom_materiel, classe_materiel):
-                    cprint("[+]Modification du materiel effectue avec succes.", 'green')
+                    cprint("[+] Modification du matériel effectué avec succès.", 'green')
                 else:
-                    cprint("[-]Une erreur s'est produite", 'red')
+                    cprint("[-] Une erreur s'est produite", 'red')
             else:
-                cprint("[-]Materiel non reconnu", 'red')
+                cprint("[-] Matériel non reconnu", 'red')
         elif re.match(p1, ch):
             id_materiel = (ch.split(" ")[1]).title()
             m.c.execute("SELECT idMat FROM materiel where idMat = ?",(id_materiel,))
@@ -136,27 +136,27 @@ def materiel():
                 resp = input().lower()
                 if resp == 'o':
                     if m.supprimer_materiel(id_materiel):
-                        cprint("[+]Suppression du materiel effectue avec succes.", 'green')
+                        cprint("[+] Suppression du matériel effectué avec succès.", 'green')
                     else:
-                        cprint("[-]Une erreur s'est produite", 'red')
+                        cprint("[-] Une erreur s'est produite", 'red')
                 else:
                     return
             else:
-                cprint("[-]Materiel non reconnu", 'red')
+                cprint("[-] Matériel non reconnu", 'red')
         elif re.match(p2, ch):
             key = (ch.split(" ")[1]).title()
             m.afficher_materiel_by_key(key)
         elif ch == 'lt':
             m.afficher_materiel()
         else:
-            cprint("[-]Commande introuvable ou incomplete.", 'red')
-            cprint("[!]Taper 'a' pour voir la liste des commandes valides",'yellow')
+            cprint("[-] Commande introuvable ou incomplète.", 'red')
+            cprint("[!] Taper 'a' pour voir la liste des commandes valides",'yellow')
 
 def emprunte():
     print("-"*30)
     print("|"+" "*10+Fore.GREEN+"EMPRUNTS"+Style.RESET_ALL+" "*10+"|")
     print("-"*30)
-    print(Fore.CYAN + "-> Ici, vous pouvez rechercher, effectuer des emprunts ou rendre des materiels" + Style.RESET_ALL)
+    print(Fore.CYAN + "-> Ici, vous pouvez rechercher, effectuer des emprunts ou rendre des matériels" + Style.RESET_ALL)
     # Instructions pour emprunt matériel ici
     m = empruntMat.emprunt("emprunt.db")
     print("Entrez une commande ('a' pour afficher la liste des commandes disponibles, 'q' pour revenir au menu principal)")
@@ -168,14 +168,14 @@ def emprunte():
         sub_choice = input("[Emprunt]>>> ").strip()
         if sub_choice == 'a':
             print(Fore.GREEN+"a"+Style.RESET_ALL+" : lister tous les commandes disponibles")
-            print(Fore.GREEN+"chercher"+Style.RESET_ALL+" [cle]: chercher des materiels non rendus a partir id du client, date d'emprunt, nombre, id du materiel")
+            print(Fore.GREEN+"chercher"+Style.RESET_ALL+" [cle]: chercher des matériels non rendus à partir id du client, date d'emprunt, nombre, id du matériel")
             print(Fore.GREEN+"emprunter"+Style.RESET_ALL+" : effectuer un nouvel emprunt")
             print(Fore.GREEN+"lt"+Style.RESET_ALL+" : lister tous les emprunts")
             print(Fore.GREEN+"lr"+Style.RESET_ALL+" : lister les emprunts rendus")
             print(Fore.GREEN+"lnr"+Style.RESET_ALL+" : lister les emprunts non rendus")
-            print(Fore.GREEN+"modifier"+Style.RESET_ALL+" [id]: modifier les proprietes de l'emprunt avec l'id entree")
-            print(Fore.GREEN+"rendre"+Style.RESET_ALL+" [id]: rendre le materiel avec l'id entree")
-            print(Fore.GREEN+"supprimer"+Style.RESET_ALL+" [id]: supprimer les donnees d'emprunt avec l'id entree")
+            print(Fore.GREEN+"modifier"+Style.RESET_ALL+" [id]: modifier les propriétés de l'emprunt avec l'id entrée")
+            print(Fore.GREEN+"rendre"+Style.RESET_ALL+" [id]: rendre le matériel avec l'id entrée")
+            print(Fore.GREEN+"supprimer"+Style.RESET_ALL+" [id]: supprimer les données d'emprunt avec l'id entrée")
             print(Fore.GREEN+"q"+Style.RESET_ALL+" : revenir au menu principal")
         elif sub_choice == 'q':
             break
@@ -206,8 +206,8 @@ def emprunte():
             id = sub_choice.split(" ")[1]
             m.rendreMateriel("emprunt",id)
         else:
-            cprint("[-]Commande introuvable ou incomplete.", 'red')
-            cprint("[!]Taper 'a' pour voir la liste des commandes valides", 'yellow')
+            cprint("[-] Commande introuvable ou incomplète.", 'red')
+            cprint("[!] Taper 'a' pour voir la liste des commandes valides", 'yellow')
 
 
 
@@ -218,7 +218,7 @@ def quit_program():
 
 
 if __name__ == '__main__':
-    print("Bienvenue dans le logiciel de gestion d'emprunt de materiels")
+    print("Bienvenue dans le logiciel de gestion d'emprunt de matériels")
 
     options = {
         "1": emprunte,

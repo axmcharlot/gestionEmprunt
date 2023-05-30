@@ -29,7 +29,7 @@ class emprunt:
             # Affichage du tableau
             cprint(table, 'blue')
         else:
-            cprint("[!]Aucune donnees n'a ete trouvees",'yellow')
+            cprint("[!] Aucune données n'a été trouvees",'yellow')
 
     def afficheNonRendus(self, nom_table):
         self.curseur.execute(f"SELECT * FROM {nom_table} where dateRen is null")
@@ -50,7 +50,7 @@ class emprunt:
             # Affichage du tableau
             cprint(table, 'blue')
         else:
-            cprint("[!]Aucune donnees n'a ete trouvees",'yellow')
+            cprint("[!] Aucune données n'a été trouvees",'yellow')
     
     def afficheRendus(self, nom_table):
         self.curseur.execute(f"SELECT * FROM {nom_table} where dateRen is not null")
@@ -69,7 +69,7 @@ class emprunt:
             # Affichage du tableau
             cprint(table, 'blue')
         else:
-            cprint("[!]Aucune donnees n'a ete trouvees",'yellow')
+            cprint("[!] Aucune données n'a été trouvees",'yellow')
     
     def rendreMateriel(self, nom_table, id):
         maintenant = datetime.now().strftime("%d %B %Y %H:%M:%S")
@@ -110,14 +110,14 @@ class emprunt:
         result = self.curseur.fetchone()
         if result is None:
             print("------------------------------------")
-            print(Fore.RED + "[-]Le client n'apparait pas dans la base de donnees" + Style.RESET_ALL)
+            print(Fore.RED + "[-] Le client n'apparait pas dans la base de données" + Style.RESET_ALL)
             return
 
         self.curseur.execute("SELECT emprunt.idClient FROM client join emprunt on client.idClient=emprunt.idClient WHERE client.idClient = ? and client.idClient not in (select idClient from emprunt where dateRen is null) ", (client,))
         result = self.curseur.fetchone()
         if result is None:
             print("------------------------------------")
-            print(Fore.YELLOW + "[!]Ce client  n'a pas encore rendu un materiel" + Style.RESET_ALL)
+            print(Fore.YELLOW + "[!] Ce client  n'a pas encore rendu un matériel" + Style.RESET_ALL)
 
         # Saisie des données utilisateur
         mObj = MM.Materiel()
@@ -129,7 +129,7 @@ class emprunt:
         result = self.curseur.fetchone()
         if result is None:
             print("------------------------------------")
-            print(Fore.RED + "[-]Matériel spécifié n'existe pas dans la Base de données." + Style.RESET_ALL)
+            print(Fore.RED + "[-] Matériel spécifié n'existe pas dans la Base de données." + Style.RESET_ALL)
             return
 
 
@@ -138,7 +138,7 @@ class emprunt:
         result = self.curseur.fetchone()
         if result is None:
             print("------------------------------------")
-            print(Fore.RED + "[-]Matériel spécifié n'est plus disponnible." + Style.RESET_ALL)
+            print(Fore.RED + "[-] Matériel spécifié n'est plus disponnible." + Style.RESET_ALL)
             return
 
         nomb = int(input("Entrez le nombre: "))
@@ -146,7 +146,7 @@ class emprunt:
         self.curseur.execute("select stock from materiel where idMat = ?", (materielID,))
         res = self.curseur.fetchone()
         if int(res[0]) < nomb:
-            cprint("[!]Materiel insufisant pour effectuer l'emprunt",'yellow')
+            cprint("[!] Matériel insufisant pour effectuer l'emprunt",'yellow')
             return
 
         maintenant = datetime.now().strftime("%d %B %Y %H:%M:%S")
@@ -161,7 +161,7 @@ class emprunt:
         self.connexion.commit()
 
         print("------------------------------------")
-        print(Fore.GREEN + "[+]Emprunt effectue succès." + Style.RESET_ALL)
+        print(Fore.GREEN + "[+] Emprunt effectué avec succès." + Style.RESET_ALL)
         
 
     def modifierempruntmat(self, nom_table,id_emprunt):
@@ -179,7 +179,7 @@ class emprunt:
         if result[5] is not None or result[6]:
             print("------------------------------------")
             print(
-                Fore.RED + "[-]Impossible de modifier l'emprunt car la matériel spécifié a déja ete rendu." + Style.RESET_ALL)
+                Fore.RED + "[-]Impossible de modifier l'emprunt car la matériel spécifié a déja été rendu." + Style.RESET_ALL)
             return
 
         # Saisie des nouvelles données utilisateur
@@ -200,7 +200,7 @@ class emprunt:
         result = self.curseur.fetchone()
         if result is None:
             print("------------------------------------")
-            print(Fore.RED + "[-]Matériel spécifié n'existe pas dans la Base de données." + Style.RESET_ALL)
+            print(Fore.RED + "[-] Matériel spécifié n'existe pas dans la Base de données." + Style.RESET_ALL)
             return
 
         # Modification des données dans la table
@@ -209,7 +209,7 @@ class emprunt:
         self.connexion.commit()
 
         print("------------------------------------")
-        print(Fore.GREEN + "[+]Enregistrement modifié avec succès." + Style.RESET_ALL)
+        print(Fore.GREEN + "[+] Enregistrement modifié avec succès." + Style.RESET_ALL)
 
     def supprimerempruntmat(self, nom_table,id_emprunt):
         
@@ -220,14 +220,14 @@ class emprunt:
         result = self.curseur.fetchone()
         if result is None:
             print("------------------------------------")
-            print(Fore.RED + "[-]Emprunt spécifié n'existe pas dans la Base de données." + Style.RESET_ALL)
+            print(Fore.RED + "[-] Emprunt spécifié n'existe pas dans la Base de données." + Style.RESET_ALL)
             return
         # Suppression de l'emprunt dans la table
         self.curseur.execute(f"DELETE FROM {nom_table} WHERE id = ?", (id_emprunt))
         self.connexion.commit()
 
         print("------------------------------------")
-        print(Fore.GREEN + "[+]Emprunt supprimé avec succès." + Style.RESET_ALL)
+        print(Fore.GREEN + "[+] Emprunt supprimé avec succès." + Style.RESET_ALL)
 
     def chercherEmpruntNonRendu(self, key, nom_table):
         self.curseur.execute(f"SELECT * FROM {nom_table} where (idMat = ? or idClient = ? or dateEmp = ? or nombre = ?) and dateRen is null",(key.title(),key.title(),key,key,))
@@ -248,4 +248,4 @@ class emprunt:
             # Affichage du tableau
             cprint(table, 'blue')
         else:
-            cprint("[!]Aucune donnees n'a ete trouve", "yellow")
+            cprint("[!] Aucune données n'a été trouvé", "yellow")

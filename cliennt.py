@@ -28,7 +28,7 @@ class Client:
             # Affichage du tableau
             cprint(table, 'blue')
         else:
-            cprint("[!]Aucune donnees n'a ete trouvees",'yellow')
+            cprint("[!] Aucune données n'a été trouvées",'yellow')
 
     def afficher_client_by_id(self, id):
         self.c.execute("SELECT idClient, nomClient, classeClient FROM client where idClient = ?",(id,))
@@ -40,7 +40,7 @@ class Client:
                 table.add_row([resultat[0], resultat[1], resultat[2]])
             cprint(table, 'blue')
         else:
-            cprint("[!]Aucune donnees n'a ete trouvees",'yellow')
+            cprint("[!] Aucune données n'a été trouvées",'yellow')
     
     def afficher_client_by_key(self, key):
         self.c.execute("SELECT idClient, nomClient, classeClient FROM client where idClient = ? or nomClient like ? or classeClient like ?",(key,'%'+key+'%','%'+key+'%'))
@@ -52,7 +52,7 @@ class Client:
                 table.add_row([resultat[0], resultat[1], resultat[2]])
             cprint(table, 'blue')
         else:
-            cprint("[!]Aucune donnees n'a ete trouvees",'yellow')
+            cprint("[!] Aucune données n'a été trouvées",'yellow')
     
     def inserer_client(self, id_client, nom_client, classe_client):
         self.c.execute("INSERT INTO client VALUES (?, ?, ?)", (id_client, nom_client, classe_client))

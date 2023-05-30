@@ -25,7 +25,7 @@ class Materiel:
                 table.add_row([resultat[0], resultat[1], resultat[2]])
             cprint(table, 'blue')
         else:
-            cprint("[!]Aucune donnees n'a ete trouvees",'yellow')
+            cprint("[!] Aucune données n'a été trouvées",'yellow')
 
     def afficher_materiel_by_id(self, id):
         self.c.execute("SELECT idMat, designation, stock FROM materiel where idMat = ?",(id,))
@@ -37,7 +37,7 @@ class Materiel:
                 table.add_row([resultat[0], resultat[1], resultat[2]])
             cprint(table, 'blue')
         else:
-            cprint("[!]Aucune donnees n'a ete trouvees",'yellow')
+            cprint("[!] Aucune données n'a été trouvées",'yellow')
 
     def afficher_materiel_by_key(self, key):
         self.c.execute("SELECT idMat, designation, stock FROM materiel where idMat = ? or designation like ? or stock = ?",(key,'%'+key+'%',key))
@@ -49,7 +49,7 @@ class Materiel:
                 table.add_row([resultat[0], resultat[1], resultat[2]])
             cprint(table, 'blue')
         else:
-            cprint("[!]Aucune donnees n'a ete trouvees",'yellow')
+            cprint("[!] Aucune donnees n'a été trouvées",'yellow')
 
     def modifier_materiel(self, id_mat, designation, stock):
         self.c.execute("UPDATE materiel SET designation = ?, stock = ? WHERE idMat = ?", (designation, stock, id_mat))
